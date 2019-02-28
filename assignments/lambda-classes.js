@@ -28,6 +28,12 @@ class Instructor extends Person {
     grade(student, subject) {
         return `${student.name} receives a perfect score on ${subject}`;
     }
+
+    instructorGrade(student) {
+        let randomScore = Math.round(100 * Math.random());
+        let operator = ['+', '-'];
+        return student.grade = parseInt(`${randomScore} ${operator[Math.round(Math.random())]} ${student.grade}`);
+    }
 } // Instructor
 
 class Student extends Person {
@@ -36,10 +42,11 @@ class Student extends Person {
         this.previousBackground = studentAttributes.previousBackground;
         this.className = studentAttributes.className;
         this.favSubjects = studentAttributes.favSubjects;
+        this.grade = studentAttributes.grade;
     }
 
     listsSubjects() {
-        return this.favSubjects.toString();
+        return this.favSubjects.join(', ');
     }
 
     PRAssignment(subject) {
@@ -48,6 +55,14 @@ class Student extends Person {
 
     sprintChallenge(subject) {
         return `${this.name} has begun sprint challenge on ${subject}`;
+    }
+
+    graduate() {
+        if(this.grade > 70) {
+            return `You are graduating!`;
+        } else {
+            return `You need to study more`;
+        }
     }
 } // Student
 
@@ -116,7 +131,8 @@ const brian = new Student({
     gender: 'male',
     previousBackground: 'app development',
     className: 'Web18',
-    favSubjects: ['Java', 'Python']
+    favSubjects: ['Java', 'Python'],
+    grade: 60
 })
 
 const michelle = new Student({
@@ -126,7 +142,8 @@ const michelle = new Student({
     gender: 'female',
     previousBackground: 'graphic design',
     className: 'Web18',
-    favSubjects: ['HTML', 'CSS', 'JavaScript']
+    favSubjects: ['HTML', 'CSS', 'JavaScript'],
+    grade: 70
 })
 
 // New Project Managers
@@ -167,3 +184,11 @@ console.log(michelle.sprintChallenge('HTML'));
 // Project Managers
 console.log(sara.standUp('#web18'));
 console.log(tom.debugsCode(brian, 'JavaScript'));
+
+// Stretch Problem
+
+console.log(mary.instructorGrade(brian));
+console.log(tom.instructorGrade(michelle));
+
+console.log(brian.graduate())
+console.log(michelle.graduate());
